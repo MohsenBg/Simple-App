@@ -1,9 +1,69 @@
 import React, { useContext, useEffect, useState } from "react";
-import { View, Text, StyleSheet, TouchableHighlight } from "react-native";
+import {
+  View,
+  Text,
+  StyleSheet,
+  TouchableHighlight,
+  TouchableOpacity,
+} from "react-native";
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import IconArrow from "react-native-vector-icons/MaterialIcons";
+import { Dimensions } from "react-native";
+import { NavigationContext } from "../../Contexts";
+import { device_type, DeviceType } from "../../device";
+import PanelCoinChanger from "../Other/PanelCoinChanger";
+import { FullScreenSize } from "../../Function/Size";
 
-import { NavigationContext } from "../../App";
+const Header = ({ setIsPanelOpen }: any) => {
+  const { NavigationSelected, setNavigationSelected } =
+    useContext(NavigationContext);
+
+  const [Title, setTitle] = useState<string>("Current hashrate");
+  useEffect(() => {
+    switch (NavigationSelected) {
+      case 1:
+        setTitle("Current hashrate");
+        break;
+      case 2:
+        setTitle("Workers");
+        break;
+      case 3:
+        setTitle("Incomes and payouts");
+        break;
+      case 4:
+        setTitle("Wallet");
+        break;
+      default:
+        break;
+    }
+  }, [NavigationSelected]);
+
+  return (
+    <View>
+      <View style={style.container}>
+        <Icon name="account-circle" color="white" style={style.userIcon} />
+        <View>
+          <Text style={style.Text}>{Title}</Text>
+          {NavigationSelected != 4 ? (
+            <View style={style.ContainerTextBtc}>
+              <Text style={style.TextBtc}>Bitcoin</Text>
+              <TouchableHighlight onPress={() => setIsPanelOpen(true)}>
+                <View style={{ flexDirection: "row" }}>
+                  <Text style={style.TextSymbol}>(BTC)</Text>
+                  <IconArrow
+                    name="keyboard-arrow-down"
+                    style={style.IconArrow}
+                  />
+                </View>
+              </TouchableHighlight>
+            </View>
+          ) : null}
+        </View>
+      </View>
+    </View>
+  );
+};
+
 const style = StyleSheet.create({
   container: {
     position: "relative",
@@ -12,7 +72,7 @@ const style = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
-    padding: "10px",
+    padding: 10,
   },
   Text: {
     fontFamily: "Raleway_Bold",
@@ -24,8 +84,8 @@ const style = StyleSheet.create({
   userIcon: {
     position: "absolute",
     display: "flex",
-    top: "12px",
-    left: "10px",
+    top: 12,
+    left: 10,
     paddingRight: 10,
     height: "100%",
     fontSize: 25,
@@ -55,52 +115,5 @@ const style = StyleSheet.create({
     paddingLeft: 5,
   },
 });
-
-const Header = () => {
-  const { NavigationSelected, setNavigationSelected } =
-    useContext(NavigationContext);
-
-  const [Title, setTitle] = useState<string>("Current hashrate");
-
-  useEffect(() => {
-    switch (NavigationSelected) {
-      case 1:
-        setTitle("Current hashrate");
-        break;
-      case 2:
-        setTitle("Workers");
-        break;
-      case 3:
-        setTitle("Incomes and payouts");
-        break;
-      case 4:
-        setTitle("Wallet");
-        break;
-      default:
-        break;
-    }
-  }, [NavigationSelected]);
-
-  return (
-    <>
-      <View style={style.container}>
-        <Icon name="account-circle" color="white" style={style.userIcon} />
-        <View>
-          <Text style={style.Text}>{Title}</Text>
-          {NavigationSelected != 4 ? (
-            <View style={style.ContainerTextBtc}>
-              <Text style={style.TextBtc}>Bitcoin</Text>
-              <Text style={style.TextSymbol}>(BTC)</Text>
-              <TouchableHighlight>
-                <IconArrow name="keyboard-arrow-down" style={style.IconArrow} />
-              </TouchableHighlight>
-            </View>
-          ) : null}
-        </View>
-      </View>
-      <Text></Text>
-    </>
-  );
-};
 
 export default Header;

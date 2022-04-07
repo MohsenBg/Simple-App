@@ -3,9 +3,9 @@ import React, { useContext, useEffect } from "react";
 import IconEntypo from "react-native-vector-icons/Entypo";
 import IconMaterialCommunity from "react-native-vector-icons/MaterialCommunityIcons";
 import IconMaterial from "react-native-vector-icons/MaterialIcons";
-import IconFontAwesome5 from "react-native-vector-icons/MaterialIcons";
-
-import { NavigationContext } from "../../App";
+import IconFontAwesome5 from "react-native-vector-icons/FontAwesome5";
+import { NavigationContext } from "../../Contexts";
+import { FullScreenSize } from "../../Function/Size";
 const Navigation = () => {
   const { NavigationSelected, setNavigationSelected } =
     useContext(NavigationContext);
@@ -68,8 +68,8 @@ const Navigation = () => {
 const style = StyleSheet.create({
   NavigationContainer: {
     backgroundColor: "#1B1D2C",
-    width: "100vw",
-    height: "60px",
+    width: FullScreenSize().width,
+    height: 60,
     display: "flex",
     flexDirection: "row",
     justifyContent: "center",
@@ -80,7 +80,7 @@ const style = StyleSheet.create({
     justifyContent: "center",
   },
   Icons: {
-    height: "25px",
+    height: 25,
   },
   IconColorDeActive: {
     display: "flex",
@@ -95,7 +95,7 @@ const style = StyleSheet.create({
     color: "#6B5CE9",
   },
   Text: {
-    height: "20px",
+    height: 20,
     fontSize: 12,
     fontFamily: "Kanit_Regular",
   },
