@@ -56,13 +56,13 @@ const styles = StyleSheet.create({
   },
 });
 
-const HeaderPayout = ({ setActionType, ActionType }: any) => {
+const HeaderPayout = ({ scrollByBtn, ActionType }: any) => {
   const [IsCalenderIsOpen, setIsCalenderIsOpen] = useState(false);
   return (
     <View style={styles.containerPayOut}>
       <View style={styles.tabs}>
         <View style={styles.left}>
-          <TouchableOpacity onPress={() => setActionType(Action_Type.INCOMES)}>
+          <TouchableOpacity onPress={() => scrollByBtn(Action_Type.INCOMES)}>
             <Text
               style={
                 ActionType === Action_Type.INCOMES
@@ -73,7 +73,7 @@ const HeaderPayout = ({ setActionType, ActionType }: any) => {
               Incomes
             </Text>
           </TouchableOpacity>
-          <TouchableOpacity onPress={() => setActionType(Action_Type.PAY_OUT)}>
+          <TouchableOpacity onPress={() => scrollByBtn(Action_Type.PAY_OUT)}>
             <Text
               style={
                 ActionType === Action_Type.PAY_OUT

@@ -33,14 +33,14 @@ const Payout = () => {
   const [RenderData, setRenderData] =
     useState<typeof PAY_OUT_DATA>(PAY_OUT_DATA);
 
-  useEffect(() => {
-    if (ActionType === Action_Type.INCOMES) {
+  const scrollByBtn = (action: Action_Type) => {
+    if (action === Action_Type.INCOMES) {
       scroll.current?.scrollToOffset({ offset: 0 });
     }
-    if (ActionType === Action_Type.PAY_OUT) {
+    if (action === Action_Type.PAY_OUT) {
       scroll.current?.scrollToEnd();
     }
-  }, [ActionType]);
+  };
 
   const scroll: React.MutableRefObject<FlatList<Action_Type> | null> =
     useRef(null);
@@ -55,6 +55,8 @@ const Payout = () => {
     return (
       <SafeAreaView style={styles.items} key={index}>
         <VirtualizedList
+          showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
           scrollEnabled={true}
           data={setDataForRender(index)}
           keyExtractor={(item) => item.Id.toString()}
@@ -67,19 +69,20 @@ const Payout = () => {
   };
 
   const scrollHandel = (e: NativeSyntheticEvent<NativeScrollEvent>) => {
-    if (e.nativeEvent.contentOffset.x === e.nativeEvent.contentSize.width / 2)
+    if (e.nativeEvent.contentOffset.x > e.nativeEvent.contentSize.width / 4)
       setActionType(Action_Type.PAY_OUT);
-    if (e.nativeEvent.contentOffset.x === 0) setActionType(Action_Type.INCOMES);
+    if (e.nativeEvent.contentOffset.x < e.nativeEvent.contentSize.width / 4)
+      setActionType(Action_Type.INCOMES);
   };
   return (
     <View style={styles.container}>
-      <HeaderPayout setActionType={setActionType} ActionType={ActionType} />
+      <HeaderPayout scrollByBtn={scrollByBtn} ActionType={ActionType} />
       <SafeAreaView>
         <FlatList
           showsVerticalScrollIndicator={false}
+          showsHorizontalScrollIndicator={false}
           data={Tabs}
           keyExtractor={(item, index) => item}
-          showsHorizontalScrollIndicator={false}
           horizontal
           renderItem={renderData}
           pagingEnabled

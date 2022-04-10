@@ -8,6 +8,7 @@ import {
   NativeScrollEvent,
   ActivityIndicator,
   FlatList,
+  ScrollView,
 } from "react-native";
 import { Colors } from "react-native/Libraries/NewAppScreen";
 import { FullScreenSize } from "../../Function/Size";
@@ -36,7 +37,8 @@ const Tabs = [WalletTab.BALANCE, WalletTab.DEPOSITS];
 
 const RenderData = ({ Tabs, index }: any) => {
   return (
-    <View
+    <ScrollView
+      showsVerticalScrollIndicator={false}
       style={{
         width: FullScreenSize().width,
         minHeight: FullScreenSize().height - 120,
@@ -55,7 +57,7 @@ const RenderData = ({ Tabs, index }: any) => {
           <ActivityIndicator animating={true} size={50} />
         </View>
       )}
-    </View>
+    </ScrollView>
   );
 };
 

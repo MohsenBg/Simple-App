@@ -7,6 +7,7 @@ const useFonts = async () =>
     Raleway_Bold: require("../assets/fonts/Raleway/Raleway-SemiBold.ttf"),
     Linotte_SemiBold: require("../assets/fonts/Linotte-SemiBold.otf"),
     URWGeometricBold: require("../assets/fonts/URWGeometric/URWGeometricBold.otf"),
+    URWGeometricR: require("../assets/fonts/URWGeometric/URWGeometricRegular.otf"),
     URWGeometricM: require("../assets/fonts/URWGeometric/URWGeometricMedium.otf"),
     URWGeometricLight: require("../assets/fonts/URWGeometric/URWGeometricLight.otf"),
   });
