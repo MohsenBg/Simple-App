@@ -30,7 +30,7 @@ const style = StyleSheet.create({
     textAlign: "center",
     fontFamily: "Brevia_Semibold",
     color: "white",
-    fontSize: 25,
+    fontSize: 35,
     zIndex: 2,
   },
   Chart: {
@@ -38,7 +38,7 @@ const style = StyleSheet.create({
     marginTop: -15,
   },
   box: {
-    borderRadius: 3,
+    borderRadius: 10,
     backgroundColor: "#1B1D2C",
     width: "100%",
     // minHeight: 1000,
@@ -59,7 +59,7 @@ const style = StyleSheet.create({
   },
   textResult: {
     fontFamily: "Brevia_Semibold",
-    textAlign: "center",
+    textAlign: "right",
     color: "white",
     fontSize: 25,
     marginBottom: 5,
@@ -67,12 +67,49 @@ const style = StyleSheet.create({
     display: "flex",
     justifyContent: "flex-end",
   },
+  box2: {
+    marginVertical: 15,
+    marginBottom: 80,
+    borderRadius: 10,
+    backgroundColor: "#1B1D2C",
+    width: "100%",
+    minHeight: 300,
+    shadowRadius: 5,
+    shadowOpacity: 0.5,
+    paddingVertical: 10,
+    paddingBottom: 20,
+  },
+  gray: {
+    marginTop: 20,
+    fontSize: 18,
+    textAlign: "center",
+    color: "#A9AFBB",
+    fontFamily: "Linotte_SemiBold",
+  },
+  white: {
+    fontSize: 25,
+    textAlign: "center",
+    color: "white",
+    fontFamily: "Linotte_SemiBold",
+  },
+  small: {
+    marginTop: 10,
+    textAlign: "center",
+    color: "#A9AFBB",
+    fontFamily: "Linotte_SemiBold",
+  },
+  light: {
+    fontSize: 12,
+    paddingHorizontal: 30,
+    textAlign: "center",
+    color: "#A9AFBB",
+  },
 });
 const Main = () => {
   return (
     <>
       <View style={style.Background} />
-      <View style={style.container}>
+      <ScrollView style={style.container}>
         <Text style={style.TextHashBig}>0.00 H/s</Text>
         <View style={style.Chart}>
           <Image
@@ -92,8 +129,26 @@ const Main = () => {
               <Text style={style.textResult}>0.00 H/s</Text>
             </View>
           </View>
+          <View style={style.box2}>
+            <Text style={style.gray}>Yesterday's reward</Text>
+            <Text style={style.white}>0.00000000 BTC</Text>
+            <Text style={style.small}>≈ 0.00 $</Text>
+            <Text style={style.gray}>Payout forecast for today</Text>
+            <Text style={style.white}>0.00000000 BTC</Text>
+            <Text style={style.small}>≈ 0.00 $</Text>
+            <Text style={style.light}>
+              Approximate data based on the pool's profitability for 06.04
+            </Text>
+            <Text style={style.gray}>Amount to be paid</Text>
+            <Text style={style.white}>0.00000000 BTC</Text>
+            <Text style={style.small}>≈ 0.00 $</Text>
+            <Text style={style.light}>The sum of all unpaid payouts</Text>
+            <Text style={style.gray}>Total paid</Text>
+            <Text style={style.white}>0.00000000 BTC</Text>
+            <Text style={style.small}>≈ 0.00 $</Text>
+          </View>
         </View>
-      </View>
+      </ScrollView>
     </>
   );
 };

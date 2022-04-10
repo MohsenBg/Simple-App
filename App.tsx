@@ -7,6 +7,7 @@ import {
   View,
   Dimensions,
   TouchableOpacity,
+  Platform,
 } from "react-native";
 import Header from "./Components/Header/Header";
 import Navigation from "./Components/Navigation/Navigation";
@@ -16,17 +17,21 @@ import { NavigationContext } from "./Contexts";
 import { FullScreenSize } from "./Function/Size";
 import * as Sentry from "sentry-expo";
 import PanelCoinChanger from "./Components/Other/PanelCoinChanger";
-
+import { ActivityIndicator } from "react-native";
+if (Platform.OS === "android") {
+  //@ts-expect-error
+  if (!ActivityIndicator.defaultProps) ActivityIndicator.defaultProps = {};
+  //@ts-expect-error
+  ActivityIndicator.defaultProps.color = "#2196F2";
+}
 Sentry.init({
   dsn: "https://fbe3e154473b4f3cb4d02c9d0a99365f@o1193295.ingest.sentry.io/6315515",
   enableInExpoDevelopment: true,
-  debug: true, // If `true`, Sentry will try to print out useful debugging information if something goes wrong with sending the event. Set it to `false` in production
+  debug: true,
 });
 
-// Access any @sentry/react-native exports via:
 Sentry.Native;
 
-// Access any @sentry/browser exports via:
 Sentry.Browser;
 
 export default function App() {
