@@ -1,7 +1,9 @@
-import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import React, { useState } from "react";
+import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import IconMaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import IconEntypo from "react-native-vector-icons/Entypo";
+import PanelBalance from "../Payout/PanelBalance";
+import { FullScreenSize } from "../../Function/Size";
 
 const styles = StyleSheet.create({
   container: {
@@ -9,6 +11,18 @@ const styles = StyleSheet.create({
     marginTop: 20,
     paddingHorizontal: 20,
     marginBottom: 135,
+  },
+  touchable: {
+    margin: 0,
+    padding: 0,
+    zIndex: 5,
+    width: FullScreenSize().width,
+    height: FullScreenSize().height,
+    position: "absolute",
+    top: 0,
+    bottom: 0,
+    right: 0,
+    left: 0,
   },
   box1: {
     padding: 18,
@@ -103,8 +117,15 @@ const styles = StyleSheet.create({
 });
 
 const Balance = () => {
+  const [panelISOpen, setPanelISOpen] = useState<boolean>(false);
   return (
     <View style={styles.container}>
+      {panelISOpen ? (
+        <TouchableOpacity
+          style={styles.touchable}
+          onPress={() => setPanelISOpen(false)}
+        />
+      ) : null}
       <View style={styles.box1}>
         <Text style={styles.TextTotalBalance}>Total balance</Text>
         <Text
@@ -173,7 +194,7 @@ const Balance = () => {
         />
         <Text style={styles.TransactionText}>Transaction History</Text>
       </View>
-      <View style={styles.box3}>
+      <View style={[styles.box3, { position: "relative" }]}>
         <View
           style={[
             styles.containerTextRow,
@@ -203,12 +224,14 @@ const Balance = () => {
           </Text>
           <View style={{ flex: 1 }}>
             <IconEntypo
+              onPress={() => setPanelISOpen(true)}
               name="dots-three-vertical"
               style={[
                 styles.IconStyle,
                 { fontSize: 18, textAlign: "right", marginRight: -5 },
               ]}
             />
+            <PanelBalance panelISOpen={panelISOpen} />
           </View>
         </View>
         <View

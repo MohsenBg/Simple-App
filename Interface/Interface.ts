@@ -22,3 +22,8 @@ export enum WalletTab {
   BALANCE = "Balance",
   DEPOSITS = "Deposits",
 }
+
+export interface ContextStateInterface {
+  Title: string;
+  setTitle: any;
+}

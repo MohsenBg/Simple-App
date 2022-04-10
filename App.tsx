@@ -13,11 +13,12 @@ import Header from "./Components/Header/Header";
 import Navigation from "./Components/Navigation/Navigation";
 import HandelNavigationComponents from "./Components/Other/HandelComponents";
 import useFonts from "./Hook/useFont";
-import { NavigationContext } from "./Contexts";
+import { NavigationContext, SateContext } from "./Contexts";
 import { FullScreenSize } from "./Function/Size";
 import * as Sentry from "sentry-expo";
 import PanelCoinChanger from "./Components/Other/PanelCoinChanger";
 import { ActivityIndicator } from "react-native";
+import Empty from "./Components/Empty/Empty";
 if (Platform.OS === "android") {
   //@ts-expect-error
   if (!ActivityIndicator.defaultProps) ActivityIndicator.defaultProps = {};
@@ -38,7 +39,7 @@ export default function App() {
   const [NavigationSelected, setNavigationSelected] = useState<number>(1);
   const [IsReady, SetIsReady] = useState(false);
   const [IsPanelOpen, setIsPanelOpen] = useState<boolean>(false);
-
+  const [Title, setTitle] = useState<string>("");
   const LoadFonts = async () => {
     await useFonts();
   };
@@ -58,29 +59,32 @@ export default function App() {
   return (
     <>
       <View style={styles.container}>
-        <NavigationContext.Provider
-          value={{ NavigationSelected, setNavigationSelected }}
-        >
-          <StatusBar backgroundColor="#202231" />
-          <View style={styles.HeaderComponent}>
-            <Header setIsPanelOpen={setIsPanelOpen} />
-          </View>
-          <View style={{ flex: 1, zIndex: 1 }}>
-            <HandelNavigationComponents />
-          </View>
-          <View style={styles.NavigationComponent}>
-            <Navigation />
-          </View>
-          {IsPanelOpen ? (
-            <View style={styles.PanelChangeCoin}>
-              <TouchableOpacity
-                onPress={() => Close()}
-                style={styles.PanelChangeCoin}
-              ></TouchableOpacity>
-              <PanelCoinChanger Close={Close} />
+        <SateContext.Provider value={{ Title, setTitle }}>
+          <NavigationContext.Provider
+            value={{ NavigationSelected, setNavigationSelected }}
+          >
+            <StatusBar backgroundColor="#202231" />
+            <Empty />
+            <View style={styles.HeaderComponent}>
+              <Header setIsPanelOpen={setIsPanelOpen} />
             </View>
-          ) : null}
-        </NavigationContext.Provider>
+            <View style={{ flex: 1, zIndex: 1 }}>
+              <HandelNavigationComponents />
+            </View>
+            <View style={styles.NavigationComponent}>
+              <Navigation />
+            </View>
+            {IsPanelOpen ? (
+              <View style={styles.PanelChangeCoin}>
+                <TouchableOpacity
+                  onPress={() => Close()}
+                  style={styles.PanelChangeCoin}
+                ></TouchableOpacity>
+                <PanelCoinChanger Close={Close} />
+              </View>
+            ) : null}
+          </NavigationContext.Provider>
+        </SateContext.Provider>
       </View>
     </>
   );

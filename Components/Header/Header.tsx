@@ -9,7 +9,7 @@ import {
 import Icon from "react-native-vector-icons/MaterialCommunityIcons";
 import IconArrow from "react-native-vector-icons/MaterialIcons";
 import { Dimensions } from "react-native";
-import { NavigationContext } from "../../Contexts";
+import { NavigationContext, SateContext } from "../../Contexts";
 import { device_type, DeviceType } from "../../device";
 import PanelCoinChanger from "../Other/PanelCoinChanger";
 import { FullScreenSize } from "../../Function/Size";
@@ -37,11 +37,17 @@ const Header = ({ setIsPanelOpen }: any) => {
         break;
     }
   }, [NavigationSelected]);
+  const StateC = useContext(SateContext);
 
   return (
     <View>
       <View style={style.container}>
-        <Icon name="account-circle" color="white" style={style.userIcon} />
+        <Icon
+          name="account-circle"
+          color="white"
+          style={style.userIcon}
+          onPress={() => StateC.setTitle("Account")}
+        />
         <View>
           <Text style={style.Text}>{Title}</Text>
           {NavigationSelected != 4 ? (

@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, ScrollView } from "react-native";
 import { Dimensions } from "react-native";
 import { DeviceType, device_type } from "../../device";
+import { PAY_OUT_DATA } from "../../Items/Payout&Incame";
 
 const type = DeviceType.WEB == device_type ? "window" : "screen";
 const imageHeight = Math.round((Dimensions.get(type).width * 9) / 16);
@@ -105,7 +106,21 @@ const style = StyleSheet.create({
     color: "#A9AFBB",
   },
 });
+
+const CountTotal = () => {
+  let result = 0;
+  for (let i = 0; i < PAY_OUT_DATA.length; i++) {
+    result += parseFloat(PAY_OUT_DATA[i].Amount);
+  }
+  return result;
+};
+
 const Main = () => {
+  const [total, setTotal] = useState(0.0);
+  useEffect(() => {
+    setTotal(CountTotal());
+  }, []);
+
   return (
     <>
       <View style={style.Background} />
@@ -144,7 +159,7 @@ const Main = () => {
             <Text style={style.small}>≈ 0.00 $</Text>
             <Text style={style.light}>The sum of all unpaid payouts</Text>
             <Text style={style.gray}>Total paid</Text>
-            <Text style={style.white}>0.00000000 BTC</Text>
+            <Text style={style.white}>{total.toFixed(8)} BTC</Text>
             <Text style={style.small}>≈ 0.00 $</Text>
           </View>
         </View>
