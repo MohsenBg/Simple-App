@@ -78,7 +78,7 @@ function dateRange(startDate: string, endDate: string, steps = 1) {
   return dateArray;
 }
 
-const Calendars = ({ setIsCalenderIsOpen }: any) => {
+const Calendars = ({ setIsCalenderOpen }: any) => {
   const [Day, setDay] = useState<any>({
     [new Date().toISOString().slice(0, 10)]: {
       ...styleStartAndEnd,
@@ -198,7 +198,7 @@ const Calendars = ({ setIsCalenderIsOpen }: any) => {
           }}
         >
           <TouchableOpacity
-            onPress={() => setIsCalenderIsOpen(false)}
+            onPress={() => setIsCalenderOpen(false)}
             style={[
               styles.buttonContainer,
               { flex: 0.5, backgroundColor: "transparent" },
@@ -207,7 +207,7 @@ const Calendars = ({ setIsCalenderIsOpen }: any) => {
             <Text style={[styles.Text, { color: "#6B5CE9" }]}>Reset</Text>
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => setIsCalenderIsOpen(false)}
+            onPress={() => setIsCalenderOpen(false)}
             style={[styles.buttonContainer, { flex: 0.5 }]}
           >
             <Text style={[styles.Text, { color: "white" }]}>Show</Text>

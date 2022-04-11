@@ -1,9 +1,10 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, Text, StyleSheet, Image, TouchableOpacity } from "react-native";
 import IconMaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import IconEntypo from "react-native-vector-icons/Entypo";
 import PanelBalance from "../Payout/PanelBalance";
 import { FullScreenSize } from "../../Function/Size";
+import { SateContext } from "../../Contexts";
 
 const styles = StyleSheet.create({
   container: {
@@ -117,6 +118,8 @@ const styles = StyleSheet.create({
 });
 
 const Balance = () => {
+  const { setTitle } = useContext(SateContext);
+
   const [panelISOpen, setPanelISOpen] = useState<boolean>(false);
   return (
     <View style={styles.container}>
@@ -138,17 +141,23 @@ const Balance = () => {
         </Text>
         <Text style={styles.small}>≈ 0.0 $</Text>
         <View style={styles.btnContainer}>
-          <View style={[styles.btn, { marginRight: 5 }]}>
+          <TouchableOpacity
+            onPress={() => setTitle("Top up")}
+            style={[styles.btn, { marginRight: 5 }]}
+          >
             <IconMaterialCommunityIcons name="redo" style={styles.IconStyle} />
             <Text style={styles.TextBtn}>Top up</Text>
-          </View>
-          <View style={[styles.btn, { marginLeft: 5 }]}>
+          </TouchableOpacity>
+          <TouchableOpacity
+            onPress={() => setTitle("Wiredraw")}
+            style={[styles.btn, { marginLeft: 5 }]}
+          >
             <IconMaterialCommunityIcons
               name="undo"
               style={[styles.IconStyle]}
             />
             <Text style={styles.TextBtn}>Wiredraw</Text>
-          </View>
+          </TouchableOpacity>
         </View>
         <View style={styles.containerTextRow}>
           <Text style={styles.TextRowL}>In wallets</Text>
@@ -187,13 +196,16 @@ const Balance = () => {
           </View>
         </View>
       </View>
-      <View style={styles.box2}>
+      <TouchableOpacity
+        style={styles.box2}
+        onPress={() => setTitle("Transaction History")}
+      >
         <IconMaterialCommunityIcons
           style={styles.IconStyle}
           name="script-text-outline"
         />
         <Text style={styles.TransactionText}>Transaction History</Text>
-      </View>
+      </TouchableOpacity>
       <View style={[styles.box3, { position: "relative" }]}>
         <View
           style={[

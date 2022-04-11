@@ -6,10 +6,13 @@ import {
   Animated,
   TouchableOpacity,
   ActivityIndicator,
+  BackHandler,
 } from "react-native";
 import Icon from "react-native-vector-icons/AntDesign";
 import { SateContext } from "../../Contexts";
 import { FullScreenSize } from "../../Function/Size";
+import Export from "../Export/Export";
+import NetWork from "../Network/NetWork";
 const styles = StyleSheet.create({
   container: {
     flex: 1,
@@ -21,6 +24,7 @@ const styles = StyleSheet.create({
     fontSize: 20,
     marginBottom: 5,
   },
+
   IconBack: {
     position: "absolute",
     top: 0,
@@ -33,9 +37,36 @@ const styles = StyleSheet.create({
 });
 
 const Empty = () => {
+  const [loading, setLoading] = useState(true);
   const Opacity = useState(new Animated.Value(0))[0];
   const Top = useState(new Animated.Value(FullScreenSize().height + 50))[0];
   const { Title, setTitle } = useContext(SateContext);
+  useEffect(() => {
+    BackHandler.addEventListener("hardwareBackPress", () => {
+      setTitle("");
+      return true;
+    });
+    return () => {
+      BackHandler.removeEventListener("hardwareBackPress", () => {
+        setTitle("");
+        return true;
+      });
+    };
+  }, []);
+
+  useEffect(() => {
+    let range = { min: 3000, max: 6000 };
+    let delta = range.max - range.min;
+    const randomTime = Math.round(range.min + Math.random() * delta);
+
+    if (Title === "Export") {
+      setTimeout(() => {
+        setLoading(false);
+      }, randomTime);
+    } else {
+      setLoading(true);
+    }
+  }, [Title]);
 
   useEffect(() => {
     if (Title !== "") {
@@ -82,6 +113,7 @@ const Empty = () => {
         zIndex: 10,
       }}
     >
+      <NetWork />
       {Title !== "" ? (
         <View style={styles.container}>
           <View
@@ -104,16 +136,20 @@ const Empty = () => {
               <Text style={styles.Text}>{Title}</Text>
             </View>
           </View>
-          <View
-            style={{
-              alignItems: "center",
-              justifyContent: "center",
-              width: FullScreenSize().width,
-              height: FullScreenSize().height - 70,
-            }}
-          >
-            <ActivityIndicator animating={true} size={50} />
-          </View>
+          {loading ? (
+            <View
+              style={{
+                alignItems: "center",
+                justifyContent: "center",
+                width: FullScreenSize().width,
+                height: FullScreenSize().height - 70,
+              }}
+            >
+              <ActivityIndicator animating={true} size={50} />
+            </View>
+          ) : (
+            <Export />
+          )}
         </View>
       ) : null}
     </Animated.View>

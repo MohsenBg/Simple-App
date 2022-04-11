@@ -1,5 +1,5 @@
 import AppLoading from "expo-app-loading";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import {
   StatusBar,
   StyleSheet,
@@ -8,6 +8,7 @@ import {
   Dimensions,
   TouchableOpacity,
   Platform,
+  BackHandler,
 } from "react-native";
 import Header from "./Components/Header/Header";
 import Navigation from "./Components/Navigation/Navigation";

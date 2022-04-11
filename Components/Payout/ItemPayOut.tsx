@@ -168,7 +168,7 @@ const ItemPayOut = ({ item }: Props) => {
                 </View>
                 <View style={[styles.row1, { height: 20, marginBottom: 5 }]}>
                   <Pressable
-                    onPress={() => Linking.openURL(UriBase + item.Transaction)}
+                  // onPress={() => Linking.openURL(UriBase + item.Transaction)}
                   >
                     {({ pressed }) => (
                       <Text

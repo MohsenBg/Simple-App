@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { View, Text, StyleSheet, TouchableOpacity } from "react-native";
 import { FullScreenSize } from "../../Function/Size";
 import IconSimpleLineIcons from "react-native-vector-icons/SimpleLineIcons";
@@ -6,6 +6,8 @@ import IconMaterialCommunityIcons from "react-native-vector-icons/MaterialCommun
 import IconIonicons from "react-native-vector-icons/Ionicons";
 import { Action_Type } from "../../Items/Payout&Incame";
 import Calendars from "./Calendars";
+import Export from "../Export/Export";
+import { SateContext } from "../../Contexts";
 
 const styles = StyleSheet.create({
   containerPayOut: {
@@ -21,7 +23,7 @@ const styles = StyleSheet.create({
   DefaultText: {
     fontFamily: "Raleway_Bold",
     color: "white",
-    fontSize: 18,
+    fontSize: 16,
   },
   left: {
     flexDirection: "row",
@@ -57,7 +59,8 @@ const styles = StyleSheet.create({
 });
 
 const HeaderPayout = ({ scrollByBtn, ActionType }: any) => {
-  const [IsCalenderIsOpen, setIsCalenderIsOpen] = useState(false);
+  const [IsCalenderOpen, setIsCalenderOpen] = useState(false);
+  const { setTitle } = useContext(SateContext);
   return (
     <View style={styles.containerPayOut}>
       <View style={styles.tabs}>
@@ -87,13 +90,16 @@ const HeaderPayout = ({ scrollByBtn, ActionType }: any) => {
         </View>
         <View style={styles.right}>
           <TouchableOpacity>
-            <IconSimpleLineIcons
-              name="question"
+            <IconMaterialCommunityIcons
+              name="export-variant"
               style={[styles.DefaultIcon, { marginRight: 20 }]}
+              onPress={() => setTitle("Export")}
             />
           </TouchableOpacity>
           <TouchableOpacity
-            onPress={() => setIsCalenderIsOpen(!IsCalenderIsOpen)}
+            onPress={() => {
+              setIsCalenderOpen(!IsCalenderOpen);
+            }}
           >
             <IconMaterialCommunityIcons
               name="calendar-blank"
@@ -112,8 +118,8 @@ const HeaderPayout = ({ scrollByBtn, ActionType }: any) => {
         <Text style={[styles.light, { flex: 0.6 }]}>Data</Text>
         <Text style={[styles.light, { flex: 0.4 }]}>Sum</Text>
       </View>
-      {IsCalenderIsOpen ? (
-        <Calendars setIsCalenderIsOpen={setIsCalenderIsOpen} />
+      {IsCalenderOpen ? (
+        <Calendars setIsCalenderOpen={setIsCalenderOpen} />
       ) : null}
     </View>
   );
