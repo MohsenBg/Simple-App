@@ -2,7 +2,7 @@ import React from "react";
 import {
   ContextsInterface,
   ContextStateInterface,
-} from "./Interface/Interface";
+} from "@interface/interface";
 
 export const NavigationContext: React.Context<ContextsInterface> =
   React.createContext({

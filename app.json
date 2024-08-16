@@ -23,7 +23,8 @@
       "adaptiveIcon": {
         "foregroundImage": "./assets/adaptive-icon.png",
         "backgroundColor": "#FFFFFF"
-      }
+      },
+      "package": "com.EMCD"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -31,17 +32,16 @@
     "plugins": [
       "sentry-expo"
     ],
-    "hooks": {
-      "postPublish": [
-        {
-          "file": "sentry-expo/upload-sourcemaps",
-          "config": {
-            "organization": "Mohsen",
-            "project": "mohsen-34",
-            "authToken": "1f04bd439a2c48daba805de855ea994cebba52fe55b142399f8f6abdbe3f6f88"
-          }
-        }
-      ]
+    "hooks": {},
+    "extra": {
+      "eas": {
+        "projectId": "bf53fb76-9b2f-4cad-96f0-664e8e5f01f8"
+      }
+    }
+  },
+  "extra": {
+    "eas": {
+      "projectId": "bf53fb76-9b2f-4cad-96f0-664e8e5f01f8"
     }
   }
 }
