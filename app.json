@@ -1,17 +1,16 @@
 {
   "expo": {
-    "name": "ECMD",
-    "slug": "ECMD",
+    "name": "EMCD",
+    "slug": "EMCD",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "splash": {
-      "image": "./assets/splash.png",
-      "resizeMode": "contain",
-      "backgroundColor": "#ffffff"
-    },
     "updates": {
       "fallbackToCacheTimeout": 0
+    },
+    "splash": {
+      "backgroundColor": "#232637",
+      "resizeMode": "contain"
     },
     "assetBundlePatterns": [
       "**/*"
@@ -21,10 +20,10 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/adaptive-icon.png",
+        "foregroundImage": "./assets/icon-app.png",
         "backgroundColor": "#FFFFFF"
       },
-      "package": "com.EMCD"
+      "package": "io.emcd"
     },
     "web": {
       "favicon": "./assets/favicon.png"
@@ -35,13 +34,11 @@
     "hooks": {},
     "extra": {
       "eas": {
-        "projectId": "bf53fb76-9b2f-4cad-96f0-664e8e5f01f8"
+        "projectId": "0895f548-1abd-49a0-9f51-a2dd3430bf1c"
       }
     }
   },
   "extra": {
-    "eas": {
-      "projectId": "bf53fb76-9b2f-4cad-96f0-664e8e5f01f8"
-    }
+    "eas": {}
   }
 }

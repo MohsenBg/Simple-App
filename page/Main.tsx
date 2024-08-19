@@ -134,7 +134,13 @@ const Main = () => {
   const SetUSDPrice = async () => {
     const btcRes: BtcJsonResponse[] =
       await axios.get("https://api.coinlore.net/api/ticker/?id=90")
-        .then(res => res.data);
+        .then(res => res.data).catch((e) => {
+          Toast.show({
+            type: "error",
+            text1: "Unable to retrieve price.",
+            text2: "Please check your network."
+          });
+        });
 
     setUsd(parseFloat(btcRes[0].price_usd) * CountTotal());
   }
@@ -179,7 +185,10 @@ const Main = () => {
             <Text style={style.light}>The sum of all unpaid payouts</Text>
             <Text style={style.gray}>Total paid</Text>
             <Text style={style.white}>{total.toFixed(8)} BTC</Text>
-            <Text style={style.small}>≈ {usd.toFixed(2)} $</Text>
+            <Text style={style.small}>
+              {usd >= 0 ? `≈ ${usd.toFixed(2)} $` : "Loading price..."}
+            </Text>
+
           </View>
         </View>
       </ScrollView>

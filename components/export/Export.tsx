@@ -9,7 +9,7 @@ import {
 import { FullScreenSize } from "@/function/Size";
 import IconAntDesign from "react-native-vector-icons/AntDesign";
 import IconMaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
-import { useAssets } from "expo-asset";
+import * as WebBrowser from "expo-web-browser"
 
 const styles = StyleSheet.create({
   container: {
@@ -49,24 +49,23 @@ const styles = StyleSheet.create({
 });
 
 const Export = () => {
-  const [assets, error] = useAssets([require("../../assets/doc/splash.png")]);
 
   const getFile = async (type: string) => {
     let Link = "";
     switch (type) {
       case "PDF":
         Link =
-          "https://cdn.filesend.jp/private/qss9LTg4aiaJtXSAWPsoJHSS7tPXkt8SOmsOBV4ey5qiiiHLDOe2EiLT4s4Ejl3I/Incomes.pdf";
+          "https://feji.us/dbto4z";
         break;
       case "XLSX":
         Link =
-          "https://cdn.filesend.jp/private/FO9OJW1525DPKDW4NvycRNsra0XPFcMGZSG7V5c_5HU5vEvaG3yayaV-beKc7Fdu/Incomes.xlsx";
+          "https://feji.us/cm4l75";
         break;
 
       default:
         break;
     }
-    await Linking.openURL(Link);
+    await WebBrowser.openBrowserAsync(Link);
   };
 
   return (
@@ -99,14 +98,15 @@ const Export = () => {
           <IconAntDesign name="pdffile1" style={styles.Icon} />
           <Text style={[styles.white, { fontSize: 16 }]}>PDF</Text>
         </Pressable>
-        <Pressable style={styles.buttonContainer}>
+        <Pressable
+          onPress={() => getFile("XLSX")}
+          style={styles.buttonContainer}>
           <IconMaterialCommunityIcons
             name="microsoft-excel"
             style={styles.Icon}
           />
           <Text
             style={[styles.white, { fontSize: 16 }]}
-            onPress={() => getFile("XLSX")}
           >
             XLSX
           </Text>

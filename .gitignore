@@ -220,6 +220,8 @@ buck-out
 /packages/rn-tester/Gemfile.lock
 /packages/**/RCTLegacyInteropComponents.mm
 
+.gitsecret
+
 # Ignore RNTester specific Pods, but keep the __offline_mirrors__ here.
 /packages/rn-tester/Pods/*
 !/packages/rn-tester/Pods/__offline_mirrors_hermes__
@@ -253,3 +255,5 @@ buck-out
 
 # CircleCI
 .circleci/generated_config.yml
+.gitsecret/keys/random_seed
+!*.secret

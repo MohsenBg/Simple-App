@@ -1,10 +1,14 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import IconMaterialCommunityIcons from "react-native-vector-icons/MaterialCommunityIcons";
 import IconEntypo from "react-native-vector-icons/Entypo";
 import PanelBalance from "@components/payout/PanelBalance";
 import { FullScreenSize } from "@/function/Size";
 import { SateContext } from "@/Contexts";
+import { PAY_OUT_DATA } from "@/items/Payout&Incame";
+import { BtcJsonResponse } from "@/interface/interface";
+import axios from "axios";
+import Toast from "react-native-toast-message";
 
 const styles = StyleSheet.create({
   container: {
@@ -117,10 +121,41 @@ const styles = StyleSheet.create({
   },
 });
 
+const CountTotal = () => {
+  let result = 0;
+  for (let i = 0; i < PAY_OUT_DATA.length; i++) {
+    result += parseFloat(PAY_OUT_DATA[i].Amount);
+  }
+  return result;
+};
+
 const Balance = () => {
   const { setTitle } = useContext(SateContext);
-
+  const [total, setTotal] = useState(0.0);
+  const [usd, setUsd] = useState(0.0);
   const [panelISOpen, setPanelISOpen] = useState<boolean>(false);
+
+
+  useEffect(() => {
+    setTotal(CountTotal());
+    SetUSDPrice();
+  }, []);
+
+
+  const SetUSDPrice = async () => {
+    const btcRes: BtcJsonResponse[] =
+      await axios.get("https://api.coinlore.net/api/ticker/?id=90")
+        .then(res => res.data).catch((e) => {
+          Toast.show({
+            type: "error",
+            text1: "Unable to retrieve price.",
+            text2: "Please check your network."
+          });
+        });
+
+    setUsd(parseFloat(btcRes[0].price_usd) * CountTotal());
+  }
+
   return (
     <View style={styles.container}>
       {panelISOpen ? (
@@ -137,9 +172,9 @@ const Balance = () => {
             { color: "#ffffff", fontSize: 30, fontFamily: "URWGeometricM" },
           ]}
         >
-          0.0 BTC
+          {total.toFixed(8)} BTC
         </Text>
-        <Text style={styles.small}>≈ 0.0 $</Text>
+        <Text style={styles.small}> {usd >= 0 ? `≈ ${usd.toFixed(2)} $` : "Loading price..."} </Text>
         <View style={styles.btnContainer}>
           <Pressable
             onPress={() => setTitle("Top up")}
@@ -162,9 +197,9 @@ const Balance = () => {
         <View style={styles.containerTextRow}>
           <Text style={styles.TextRowL}>In wallets</Text>
           <View style={styles.Right}>
-            <Text style={styles.TextRowR}>0.0 $</Text>
+            <Text style={styles.TextRowR}>{usd >= 0 ? `≈ ${usd.toFixed(2)} $` : "Loading price..."}</Text>
             <Text style={[styles.small, { textAlign: "right" }]}>
-              ≈ 0.0 BTC
+              ≈ {total.toFixed(8)} BTC
             </Text>
           </View>
         </View>
@@ -182,7 +217,7 @@ const Balance = () => {
           <View style={styles.Right}>
             <Text style={styles.TextRowR}>0.0 $</Text>
             <Text style={[styles.small, { textAlign: "right" }]}>
-              ≈ 0.0 BTC
+              ≈ 0.0 $
             </Text>
           </View>
         </View>
@@ -271,7 +306,7 @@ const Balance = () => {
               },
             ]}
           >
-            0.0
+            {total.toFixed(8)}
           </Text>
           <Text
             style={[
@@ -282,7 +317,7 @@ const Balance = () => {
             BTC
           </Text>
         </View>
-        <Text style={[styles.small, { paddingHorizontal: 20 }]}>≈ 0.0 $</Text>
+        <Text style={[styles.small, { paddingHorizontal: 20 }]}>{usd >= 0 ? `≈ ${usd.toFixed(2)} $` : "Loading price..."}</Text>
       </View>
     </View>
   );

@@ -8,20 +8,20 @@
     "eject": "expo eject"
   },
   "dependencies": {
-    "@react-native-community/netinfo": "^11.3.1",
-    "@sentry/react-native": "~5.22.0",
+    "@react-native-community/netinfo": "11.3.1",
     "@types/react-native-vector-icons": "^6.4.18",
     "axios": "^1.7.3",
     "babel-plugin-module-resolver": "^5.0.2",
-    "expo": "^51.0.26",
-    "expo-app-loading": "^2.1.1",
+    "expo": "~51.0.28",
     "expo-application": "~5.9.1",
     "expo-asset": "^10.0.10",
     "expo-constants": "~16.0.2",
     "expo-device": "~6.0.2",
-    "expo-splash-screen": "~0.27.5",
+    "expo-file-system": "^17.0.1",
+    "expo-intent-launcher": "^11.0.1",
     "expo-status-bar": "~1.12.1",
     "expo-updates": "~0.25.22",
+    "expo-web-browser": "^13.0.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "react-native": "0.74.5",
@@ -32,7 +32,7 @@
     "react-native-toast-message": "^2.2.0",
     "react-native-vector-icons": "^10.1.0",
     "react-native-web": "0.19.12",
-    "sentry-expo": "^7.0.0"
+    "sentry-expo": "~7.0.0"
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
